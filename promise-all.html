@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promise</title>
+    <title>Promise All</title>
 </head>
+
 <body>
     <table>
         <tbody>
@@ -40,24 +42,17 @@
             });
         }
 
-        getProduct("product")
-            .then(response => {
-                return JSON.parse(response);
-            })
-            .then(json => {
-                document.getElementById("id").textContent = json.id;
-                document.getElementById("name").textContent = json.name;
-                document.getElementById("price").textContent = json.price;
-            })
-            .catch(error => {
-                document.getElementById("id").textContent = error;
-                document.getElementById("name").textContent = error;
-                document.getElementById("price").textContent = error;
-            })
-            .finally(() => {
-                console.info("Finally");
-            })
+        const promise = Promise.all([
+            getProduct("product1"),
+            getProduct("product2"),
+            getProduct("product3"),
+        ]);
+
+        promise.then(products => {
+            console.info(products);
+        });
 
     </script>
 </body>
+
 </html>
